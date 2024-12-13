@@ -68,6 +68,15 @@ INSERT INTO ACCOUNT VALUES(106,'BR2','CURRENT',78000,'C1');
 SELECT CUST_NAME
 FROM BRANCH B, ACCOUNT A, CUSTOMER C WHERE BRANCH_NAME='MLR' AND B.BRANCH_ID= A.BRANCH_ID AND A.CUST_ID=C.CUST_ID;
 
+OUTPUT:
+CUST_NAME
+----------
+ABHILASH
+ABHILASH
+ABHILASH
+VARSHA
+
+
 
 2nd query:
 SELECT CUST_NAME FROM CUSTOMER WHERE CUST_ID=(
@@ -76,8 +85,69 @@ SELECT CUST_NAME FROM CUSTOMER WHERE CUST_ID=(
     )
 );
 
+OUTPUT:
+
+CUST_NAME
+----------
+ASHRITHA
+
+
 3rd query:
 SELECT CUST_NAME,AMT FROM CUSTOMER C, LOAN L WHERE L.CUST_ID=C.CUST_ID AND AMT>=500000;
 
+OUTPUT:
+
+CUST_NAME         AMT
+---------- ----------
+ASHRITHA       500000
+
+
 4TH QUERY:
 (SELECT * FROM BRANCH WHERE ASSETS IN (SELECT MAX(ASSETS) FROM BRANCH))UNION(SELECT * FROM BRANCH WHERE ASSETS IN(SELECT MIN(ASSETS) FROM BRANCH));
+
+OUTPUT :
+
+BRANCH_ID  BANK_NAME       BRANCH_NAME              ASSETS
+---------- --------------- -------------------- ----------
+BR1        SBI             MLR                      300000
+BR2        CANARA          MLR                      200000
+BR3        HDFC            MULKI                    200000
+BR4        HDFC            PUTTUR                   200000
+BR5        PNB             MLR                      200000
+BR6        CANARA          UDUPI                    200000
+
+6 rows selected.
+
+QUERY 5:
+DELETE FROM BRANCH WHERE BRANCH_NAME='MULKI';
+
+OUTPUT:
+
+SQL> SELECT * FROM ACCOUNT;
+
+    ACC_NO BRANCH_ID       ACC_TYPE           ACC_BAL CUST_ID
+---------- --------------- --------------- ---------- ----------
+       101 BR1             SAVINGS              50000 C1
+       102 BR1             CURRENT              80000 C4
+       103 BR1             SAVINGS              90000 C6
+       110 BR3             FD                  550000 C3
+       112 BR4             SAVINGS              78000 C5
+       106 BR2             CURRENT              78000 C1
+
+6 rows selected.
+
+SQL> DELETE FROM BRANCH WHERE BRANCH_NAME='MULKI';
+
+1 row deleted.
+
+SQL> SELECT * FROM ACCOUNT;
+
+    ACC_NO BRANCH_ID       ACC_TYPE           ACC_BAL CUST_ID
+---------- --------------- --------------- ---------- ----------
+       101 BR1             SAVINGS              50000 C1
+       102 BR1             CURRENT              80000 C4
+       103 BR1             SAVINGS              90000 C6
+       112 BR4             SAVINGS              78000 C5
+       106 BR2             CURRENT              78000 C1
+
+ 
